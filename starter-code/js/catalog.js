@@ -40,10 +40,15 @@ function addSelectedItemToCart() {
 var itemEl=document.getElementById('items');
 var itemName=itemEl.options[itemEl.selectedIndex].value;
   // TODO: get the quantity
-  var q=document.getElementById('quantity');
-  var qNum=q.value;
+   var q=document.getElementById('quantity');
+   var qNum=q.value;
+  if(qNum<1){
+    alert('Please choose correct Number!');
+    q.value='';
+  }else{
   // TODO: using those, add one item to the Cart
   cart.addItem(itemName,qNum);
+  }
 }
 
 // TODO: Update the cart count in the header nav with the number of items in the Cart
@@ -57,15 +62,20 @@ var spanEl=document.getElementById('itemCount');
 // TODO: As you add items into the cart, show them (item & quantity) in the cart preview div
 function updateCartPreview() {
   // TODO: Get the item and quantity from the form
-var pro=document.getElementById('items');
-var productName=pro.options[pro.selectedIndex].value;
-var qty=document.getElementById('quantity');
-var qtyNum=qty.value;
-  // TODO: Add a new element to the cartContents div with that information
+// var pro=document.getElementById('items');
+// var productName=pro.options[pro.selectedIndex].value;
+// var qty=document.getElementById('quantity');
+// var qtyNum=qty.value;
 var container=document.getElementById('cartContents');
-var pEl=document.createElement('p');
-pEl.textContent=productName+'  '+qtyNum;
-container.appendChild(pEl);
+container.innerHTML='';
+for(var ii=0;ii<cart.items.length;ii++){
+
+  // TODO: Add a new element to the cartContents div with that information
+  var pEl=document.createElement('p');
+  pEl.textContent=cart.items[ii].product+'  '+cart.items[ii].quantity;
+   container.appendChild(pEl);
+}
+
 }
 
 // Set up the "submit" event listener on the form.
